@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import TextField, BooleanField, FileField, IntegerField
+from wtforms import TextField, BooleanField, FileField, IntegerField, FloatField
 from wtforms.validators import Required
 
 class RegForm(Form):
@@ -19,21 +19,21 @@ class queryForm(Form):
     bod = TextField('bod', validators=[Required()])
     dri = TextField('dri', validators=[Required()])
     eng = TextField('eng', validators=[Required()])
-    whe = IntegerField('whe', validators=[Required()])
-    len = IntegerField('len', validators=[Required()])
-    wid = IntegerField('wid', validators=[Required()])
-    hei = IntegerField('hei', validators=[Required()])
-    cur = IntegerField('cur', validators=[Required()])
+    whe = FloatField('whe', validators=[Required()])
+    len = FloatField('len', validators=[Required()])
+    wid = FloatField('wid', validators=[Required()])
+    hei = FloatField('hei', validators=[Required()])
+    cur = FloatField('cur', validators=[Required()])
     engt = TextField('engt', validators=[Required()])
     noc = TextField('noc', validators=[Required()])
     engs = IntegerField('engs', validators=[Required()])
     fues = TextField('fues', validators=[Required()])
-    bor = IntegerField('bor', validators=[Required()])
-    stro = IntegerField('stro', validators=[Required()])
-    com = IntegerField('com', validators=[Required()])
+    bor = FloatField('bor', validators=[Required()])
+    stro = FloatField('stro', validators=[Required()])
+    com = FloatField('com', validators=[Required()])
     hor = IntegerField('hor', validators=[Required()])
     pea = IntegerField('pea', validators=[Required()])
     cit = IntegerField('cit', validators=[Required()])
     hig = IntegerField('hig', validators=[Required()])
-    pri = IntegerField('pri', validators=[Required()])
+    pri = FloatField('pri', validators=[Required()])
     
