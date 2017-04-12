@@ -29,7 +29,11 @@ lm.login_view = 'login'
 def face_check(pic1,pic2):
     result1 = CF.face.detect(pic1)
     result2 = CF.face.detect(pic2)
-    compare = CF.face.verify(face_id=result1[0]['faceid'],another_face_id=result2[0]['faceid'])
+    print(result1)
+    print(result2)
+    print(pic1)
+    print(pic2)
+    compare = CF.face.verify(face_id=result1[0]['faceId'],another_face_id=result2[0]['faceId'])
     return compare['isIdentical']
 @lm.user_loader
 def load_user(id):
@@ -153,7 +157,8 @@ def docamlogin():
         if (f != "tempst.png"):
             user1 = str(f).split('.')[0]
             imgurl2 = "http://ttbachyinsda.pub:810/getrawimage" + "/" + user1
-            imgurl1 = app.instance_path + os.sep + "tempst"
+            imgurl1 = "http://ttbachyinsda.pub:810/getrawimage/tempst"
+            print(imgurl2,imgurl1)
             if (face_check(imgurl2, imgurl1)):
                 user = User.query.filter_by(username=user1).first_or_404()
                 login_user(user)
