@@ -5,9 +5,11 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import base64
 import os
+import cognitive_face as CF
 
 DATABASE_URI = 'sqlite:////tmp/github-flask.db'
-SECRET_KEY = 'development key'
+SECRET_KEY = '7583782b420b4b189a43f243dad22119'
+CF.Key.set(SECRET_KEY)
 
 from forms import LoginForm, RegForm
 app = Flask(__name__)
@@ -24,6 +26,11 @@ lm.init_app(app)
 lm.login_view = 'login'
 
 
+def face_check(pic1,pic2):
+    result1 = CF.face.detect(pic1)
+    result2 = CF.face.detect(pic2)
+    compare = CF.face.verify(face_id=result1[0]['faceid'],another_face_id=result2[0]['faceid'])
+    return compare['isIdentical']
 @lm.user_loader
 def load_user(id):
     return User.query.get(int(id))
@@ -141,6 +148,16 @@ def docamlogin():
         app.instance_path, 'tempst.png'
     ),'wb')
     base64.decode(fs,f)
+    files = os.listdir(app.instance_path)
+    for f in files:
+        if (f != "tempst.png"):
+            user1 = str(f).split('.')[0]
+            imgurl2 = "http://ttbachyinsda.pub:810/getrawimage" + "/" + user1
+            imgurl1 = app.instance_path + os.sep + "tempst"
+            if (face_check(imgurl2, imgurl1)):
+                user = User.query.filter_by(username=user1).first_or_404()
+                login_user(user)
+                return redirect(url_for('index'))
     return redirect(url_for('getcam'))
 
 
