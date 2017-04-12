@@ -63,6 +63,7 @@ def before_request():
 def index():
     form = queryForm()
     if form.validate_on_submit():
+        print("has validate")
         a={}
         a["Inputs"]={}
         a["Inputs"]["input1"]={}
