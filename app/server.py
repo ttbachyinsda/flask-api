@@ -80,11 +80,11 @@ def register():
     form = RegForm()
     if form.validate_on_submit():
         f = form.filename.data
-        filename = form.id.data+'.jpg'
+        filename = form.id.data+'.png'
         f.save(os.path.join(
             app.instance_path, filename
         ))
-        filename = form.id.data+'.jpg'
+        filename = form.id.data+'.png'
         me = User(form.id.data,form.password.data,filename)
         db.session.add(me)
         db.session.commit()
@@ -110,13 +110,13 @@ def logout():
 @app.route('/getimage')
 @login_required
 def getimage():
-    image = open("./instance/"+g.user.username+'.jpg','rb').read()
+    image = open("./instance/"+g.user.username+'.png','rb').read()
     resp = Response(image,mimetype="image/jpeg")
     return resp
 
 @app.route('/getrawimage/<username>')
 def getrawimage(username):
-    image = open("./instance/{}.jpg".format(username), 'rb').read()
+    image = open("./instance/{}.png".format(username), 'rb').read()
     resp = Response(image, mimetype="image/jpeg")
     return resp
 
