@@ -43,6 +43,7 @@ def face_check(pic1,pic2):
     print(pic1)
     print(pic2)
     compare = CF.face.verify(face_id=result1[0]['faceId'],another_face_id=result2[0]['faceId'])
+    print(compare['isIdentical'])
     return compare['isIdentical']
 @lm.user_loader
 def load_user(id):
