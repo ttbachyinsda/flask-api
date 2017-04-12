@@ -113,11 +113,12 @@ def index():
         result = response.read()
         print(type(result))
         print(result)
+        sst = json.loads(result)
         return render_template("index.html",
                                title="二手车缘分系统",
                                error='Not Right',
                                form=form,
-                               predictprice=result["Results"]["output1"]["value"]["Values"][0][8])
+                               predictprice=sst["Results"]["output1"]["value"]["Values"][0][8])
     return render_template("index.html",
                            title="二手车缘分系统",
                            error='Not Right',
