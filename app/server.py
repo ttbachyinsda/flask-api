@@ -111,11 +111,18 @@ def index():
         response = urllib.request.urlopen(req)
 
         result = response.read()
+        print(type(result))
         print(result)
+        return render_template("index.html",
+                               title="二手车缘分系统",
+                               error='Not Right',
+                               form=form,
+                               predictprice=result["Results"]["output1"]["value"]["Values"][0][8])
     return render_template("index.html",
                            title="二手车缘分系统",
                            error='Not Right',
-                           form=form)
+                           form=form,
+                           predictprice=0)
 
 
 @app.route('/login', methods=['GET', 'POST'])
