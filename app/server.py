@@ -99,8 +99,7 @@ def index():
                                           form.whe.data,form.len.data,form.wid.data,form.hei.data,form.cur.data,form.engt.data,form.noc.data,form.engs.data,
                                           form.fues.data,form.bor.data,form.stro.data,form.com.data,form.hor.data,form.pea.data,form.cit.data,form.hig.data,form.pri.data]]
         a["GlobalParamenters"]=""
-        data = json.dumps(a)
-        body = str.encode(json.dumps(data))
+        body = str.encode(json.dumps(a))
 
         print(body)
         url = 'https://ussouthcentral.services.azureml.net/workspaces/98f09e8bdaf14d8ca8003c16f867a661/services/232decf47f234957aa8e63e34ae0347a/execute?api-version=2.0&details=true'
