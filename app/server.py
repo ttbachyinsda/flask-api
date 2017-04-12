@@ -102,6 +102,7 @@ def index():
         data = json.dumps(a)
         body = str.encode(json.dumps(data))
 
+        print(body)
         url = 'https://ussouthcentral.services.azureml.net/workspaces/98f09e8bdaf14d8ca8003c16f867a661/services/232decf47f234957aa8e63e34ae0347a/execute?api-version=2.0&details=true'
         api_key = 'BsQKb4MJaoH2psrE7wS7PR4Z3BT+2vMutHWTjtkHV40a7pfwwQMjCr0xfGdtns1vZkZzi0kcLdHALQPLNAcAvw=='  # Replace this with the API key for the web service
         headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
