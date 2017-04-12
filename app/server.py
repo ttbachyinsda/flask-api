@@ -11,6 +11,15 @@ DATABASE_URI = 'sqlite:////tmp/github-flask.db'
 SECRET_KEY = '7583782b420b4b189a43f243dad22119'
 CF.Key.set(SECRET_KEY)
 
+from random import Random
+def random_str(randomlength=8):
+    strs = ''
+    chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
+    length = len(chars) - 1
+    random = Random()
+    for i in range(randomlength):
+        strs+=chars[random.randint(0, length)]
+    return strs
 from forms import LoginForm, RegForm
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -148,8 +157,10 @@ def docamlogin():
     fs.write(c)
     fs.close()
     fs = open('temp.txt','rb')
+    tempfile = random_str(60)
+    tempfilename = tempfile+'.png'
     f = open(os.path.join(
-        app.instance_path, 'tempst.png'
+        app.instance_path, tempfilename
     ),'wb')
     base64.decode(fs,f)
     files = os.listdir(app.instance_path)
@@ -157,7 +168,7 @@ def docamlogin():
         if (f != "tempst.png"):
             user1 = str(f).split('.')[0]
             imgurl2 = "http://ttbachyinsda.pub:810/getrawimage" + "/" + user1
-            imgurl1 = "http://ttbachyinsda.pub:810/getrawimage/tempst"
+            imgurl1 = "http://ttbachyinsda.pub:810/getrawimage/"+tempfile
             print(imgurl2,imgurl1)
             if (face_check(imgurl2, imgurl1)):
                 user = User.query.filter_by(username=user1).first_or_404()
