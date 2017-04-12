@@ -7,7 +7,7 @@ import base64
 import os
 import cognitive_face as CF
 import json
-import urllib
+import urllib.request
 
 DATABASE_URI = 'sqlite:////tmp/github-flask.db'
 SECRET_KEY = '7583782b420b4b189a43f243dad22119'
