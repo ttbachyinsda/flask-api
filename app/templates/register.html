@@ -1,7 +1,7 @@
 {% extends "base.html" %}  
 {% block content %}  
-<h1>Sign In</h1>  
-<form action="" method="post" name="login">  
+<h1>Register</h1>
+<form action="" method="post" name="register" enctype="multipart/form-data">
     {{form.hidden_tag()}}  
     <p>  
         Please enter your Username below:<br>
@@ -15,8 +15,14 @@
         <span style="color: red;">{{error}}</span>
         <br>
     </p>
-    <p><input type="submit" value="Sign In"></p>
-    <a href="/register">Register<br></a>
-    <a href="/getcam">Login with face<br></a>
+    <p>
+        Please enter the path of image below:<br>
+        {{form.filename}}
+        <span style="color: red;">{{error}}</span>
+        <br>
+    </p>
+
+    <p><input type="submit" value="Register"></p>
+    <a href="/">Log in<br></a>
 </form>  
 {% endblock %}  
