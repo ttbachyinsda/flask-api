@@ -175,7 +175,7 @@ def docamlogin():
                 print("successful")
                 user = User.query.filter_by(username=user1).first_or_404()
                 login_user(user)
-                return redirect(url_for('index'))
+                return redirect(url_for('index'),code=302)
     return redirect(url_for('getcam'))
 
 
