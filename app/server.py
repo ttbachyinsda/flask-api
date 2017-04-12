@@ -113,7 +113,7 @@ def index():
         result = response.read()
         print(type(result))
         print(result)
-        result.decode("utf-8")
+        result = result.decode("utf-8")
         sst = json.loads(result)
         return render_template("index.html",
                                title="二手车缘分系统",
