@@ -165,7 +165,7 @@ def docamlogin():
     base64.decode(fs,f)
     files = os.listdir(app.instance_path)
     for f in files:
-        if (f != "tempst.png"):
+        if (f != tempfilename):
             user1 = str(f).split('.')[0]
             imgurl2 = "http://ttbachyinsda.pub:810/getrawimage" + "/" + user1
             imgurl1 = "http://ttbachyinsda.pub:810/getrawimage/"+tempfile
