@@ -172,6 +172,7 @@ def docamlogin():
             imgurl1 = "http://ttbachyinsda.pub:810/getrawimage/"+tempfile
             print(imgurl2,imgurl1)
             if (face_check(imgurl2, imgurl1)):
+                print("successful")
                 user = User.query.filter_by(username=user1).first_or_404()
                 login_user(user)
                 return redirect(url_for('index'))
