@@ -6,6 +6,8 @@ from werkzeug.utils import secure_filename
 import base64
 import os
 import cognitive_face as CF
+import json
+import urllib
 
 DATABASE_URI = 'sqlite:////tmp/github-flask.db'
 SECRET_KEY = '7583782b420b4b189a43f243dad22119'
@@ -20,7 +22,7 @@ def random_str(randomlength=8):
     for i in range(randomlength):
         strs+=chars[random.randint(0, length)]
     return strs
-from forms import LoginForm, RegForm
+from forms import LoginForm, RegForm, queryForm
 app = Flask(__name__)
 app.config.from_object(__name__)
 
@@ -59,17 +61,60 @@ def before_request():
 @app.route('/index')
 @login_required
 def index():
-    user = g.user
-    posts = [
-        {'author': {'nickname': 'John'},
-         'body': 'Beautiful day in Portland!'},
-        {'author': {'nickname': 'Susan'},
-         'body': 'The Avengers movie was so cool!'}
-    ]
+    form = queryForm()
+    if form.validate_on_submit():
+        a={}
+        a["Inputs"]={}
+        a["Inputs"]["input1"]={}
+        a["Inputs"]["input1"]["ColumnNames"]=["symboling",
+        "normalized-losses",
+        "make",
+        "fuel-type",
+        "aspiration",
+        "num-of-doors",
+        "body-style",
+        "drive-wheels",
+        "engine-location",
+        "wheel-base",
+        "length",
+        "width",
+        "height",
+        "curb-weight",
+        "engine-type",
+        "num-of-cylinders",
+        "engine-size",
+        "fuel-system",
+        "bore",
+        "stroke",
+        "compression-ratio",
+        "horsepower",
+        "peak-rpm",
+        "city-mpg",
+        "highway-mpg",
+        "price"]
+        a["Inputs"]["input1"]["Values"]=[[form.sym.data,form.nor.data,form.mak.data,form.fue.data,form.asp.data,form.nod.data,form.bod.data,form.dri.data,form.eng.data,
+                                          form.whe.data,form.len.data,form.wid.data,form.hei.data,form.cur.data,form.engt.data,form.noc.data,form.engs.data,
+                                          form.fues.data,form.bor.data,form.stro.data,form.com.data,form.hor.data,form.pea.data,form.cit.data,form.hig.data,form.pri.data],[form.sym.data,form.nor.data,form.mak.data,form.fue.data,form.asp.data,form.nod.data,form.bod.data,form.dri.data,form.eng.data,
+                                          form.whe.data,form.len.data,form.wid.data,form.hei.data,form.cur.data,form.engt.data,form.noc.data,form.engs.data,
+                                          form.fues.data,form.bor.data,form.stro.data,form.com.data,form.hor.data,form.pea.data,form.cit.data,form.hig.data,form.pri.data]]
+        a["GlobalParamenters"]=""
+        data = json.dumps(a)
+        body = str.encode(json.dumps(data))
+
+        url = 'https://ussouthcentral.services.azureml.net/workspaces/98f09e8bdaf14d8ca8003c16f867a661/services/232decf47f234957aa8e63e34ae0347a/execute?api-version=2.0&details=true'
+        api_key = 'BsQKb4MJaoH2psrE7wS7PR4Z3BT+2vMutHWTjtkHV40a7pfwwQMjCr0xfGdtns1vZkZzi0kcLdHALQPLNAcAvw=='  # Replace this with the API key for the web service
+        headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
+
+        req = urllib.request.Request(url, body, headers)
+
+        response = urllib.request.urlopen(req)
+
+        result = response.read()
+        print(result)
     return render_template("index.html",
-                           title="Home",
-                           user=user,
-                           posts=posts)
+                           title="二手车缘分系统",
+                           error='Not Right',
+                           form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
