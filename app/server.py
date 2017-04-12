@@ -58,7 +58,7 @@ def before_request():
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
     form = queryForm()
