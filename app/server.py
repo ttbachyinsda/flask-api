@@ -196,6 +196,12 @@ def getrawimage(username):
     resp = Response(image, mimetype="image/jpeg")
     return resp
 
+@app.route('/gettempimage/<username>')
+def getrawimage(username):
+    image = open("./instance/tempg/{}.png".format(username), 'rb').read()
+    resp = Response(image, mimetype="image/jpeg")
+    return resp
+
 @app.route('/js/<javascript>')
 def getjs(javascript):
     js = open("./js/{}".format(javascript), 'rb').read()
@@ -217,7 +223,7 @@ def docamlogin():
     tempfile = random_str(60)
     tempfilename = tempfile+'.png'
     f = open(os.path.join(
-        app.instance_path, tempfilename
+        app.instance_path, 'tempg/'+tempfilename
     ),'wb')
     base64.decode(fs,f)
     files = os.listdir(app.instance_path)
@@ -225,7 +231,7 @@ def docamlogin():
         if (f != tempfilename):
             user1 = str(f).split('.')[0]
             imgurl2 = "http://ttbachyinsda.pub:810/getrawimage" + "/" + user1
-            imgurl1 = "http://ttbachyinsda.pub:810/getrawimage/"+tempfile
+            imgurl1 = "http://ttbachyinsda.pub:810/gettempimage/"+tempfile
             print(imgurl2,imgurl1)
             if (face_check(imgurl2, imgurl1)):
                 print("successful")
