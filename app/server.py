@@ -222,7 +222,7 @@ def docamlogin():
     fs.write(c)
     fs.close()
     fs = open('temp.txt','rb')
-    tempfile = random_str(60)
+    tempfile = random_str(10)
     tempfilename = tempfile+'.png'
     f = open(os.path.join(
         app.instance_path+'/tempg', tempfilename

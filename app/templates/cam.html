@@ -50,15 +50,11 @@
 		contentType: 'application/json',
 		dataType: 'json',
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
-		    alert(textStatus)
-		    alert(XMLHttpRequest)
-			alert(errorThrown)
-			alert("Unknown Error");
+			alert("Azure API Error, Try to Login Again.");
 		},
 		success: function(data){
 			if (data['success'] == 'n') {
-				<!--document.getElementById("regRes").style = "display: inline;";-->
-				<!--document.getElementById("regRes").innerHTML = data['fault'];-->
+			    alert("Face isn't correct");
 			}
 			else {
 				location.href = "/index";
@@ -71,7 +67,7 @@
     <body>
         <a href="/index">Home<br></a>
             <video id="video" width="640" height="480" style="border:1px solid red" autoplay></video>
-            <button id="snap">Register</button>
+            <button id="snap">Login</button>
             <canvas style="border:1px solid red" id="canvas"></canvas>
     </body>
 </html>

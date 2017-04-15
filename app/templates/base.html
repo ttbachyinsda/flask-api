@@ -1,13 +1,13 @@
 <html>  
     <head>  
         {% if title %}  
-        <title>{{title}} - myblog</title>  
+        <title>{{title}} - Flask API</title>
         {% else %}  
-        <title>Welcome - myblog</title>  
+        <title>Welcome - Flask API</title>
         {% endif %}  
     </head>  
     <body>  
-        <div>MyBlog:<a href="{{url_for('index')}}">Home</a>  
+        <div>Flask API:<a href="{{url_for('index')}}">Home</a>
         {% if g.user.is_authenticated %}  
         |<a href="{{url_for('logout')}}">Logout</a>  
         {% endif %}  
