@@ -197,7 +197,7 @@ def getrawimage(username):
     return resp
 
 @app.route('/gettempimage/<username>')
-def getrawimage(username):
+def gettempimage(username):
     image = open("./instance/tempg/{}.png".format(username), 'rb').read()
     resp = Response(image, mimetype="image/jpeg")
     return resp
