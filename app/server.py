@@ -223,9 +223,10 @@ def docamlogin():
     tempfile = random_str(60)
     tempfilename = tempfile+'.png'
     f = open(os.path.join(
-        app.instance_path, 'tempg/'+tempfilename
+        app.instance_path+'/tempg', tempfilename
     ),'wb')
     base64.decode(fs,f)
+    fs.close()
     files = os.listdir(app.instance_path)
     for f in files:
         if (f != tempfilename):
