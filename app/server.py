@@ -238,6 +238,7 @@ def docamlogin():
             print(imgurl2,imgurl1)
             if (face_check(imgurl2, imgurl1)):
                 print("successful")
+                print(user1)
                 user = User.query.filter_by(username=user1).first_or_404()
                 login_user(user)
                 print("really successful")
