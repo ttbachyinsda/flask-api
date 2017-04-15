@@ -50,6 +50,8 @@
 		contentType: 'application/json',
 		dataType: 'json',
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
+		    alert(textStatus)
+		    alert(XMLHttpRequest)
 			alert(errorThrown)
 			alert("Unknown Error");
 		},
