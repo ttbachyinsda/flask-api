@@ -240,14 +240,14 @@ def docamlogin():
                 login_user(user)
                 returndata = {}
                 returndata["success"]='y'
-                return returndata
+                return json.dumps(returndata)
             else:
                 returndata = {}
                 returndata["success"] = 'n'
-                return returndata
+                return json.dumps(returndata)
     returndata = {}
     returndata["success"] = 'n'
-    return returndata
+    return json.dumps(returndata)
 
 
 class User(db.Model):
