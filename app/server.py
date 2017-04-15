@@ -238,17 +238,13 @@ def docamlogin():
                 print("successful")
                 user = User.query.filter_by(username=user1).first_or_404()
                 login_user(user)
-                returndata = {}
-                returndata["success"]='y'
+                returndata = {'success': 'y'}
                 return json.dumps(returndata)
             else:
-                returndata = {}
-                returndata["success"] = 'n'
+                returndata = {'success': 'n'}
                 return json.dumps(returndata)
-    returndata = {}
-    returndata["success"] = 'n'
+    returndata = {'success': 'n'}
     return json.dumps(returndata)
-
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
