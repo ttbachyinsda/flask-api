@@ -40,12 +40,7 @@ lm.login_view = 'login'
 def face_check(pic1,pic2):
     result1 = CF.face.detect(pic1)
     result2 = CF.face.detect(pic2)
-    print(result1)
-    print(result2)
-    print(pic1)
-    print(pic2)
     compare = CF.face.verify(face_id=result1[0]['faceId'],another_face_id=result2[0]['faceId'])
-    print(compare['isIdentical'])
     return compare['isIdentical']
 @lm.user_loader
 def load_user(id):
@@ -63,7 +58,6 @@ def before_request():
 def index():
     form = queryForm()
     if form.validate_on_submit():
-        print("has validate")
         a={}
         a["Inputs"]={}
         a["Inputs"]["input1"]={}
@@ -101,7 +95,6 @@ def index():
         a["GlobalParamenters"]=""
         body = str.encode(json.dumps(a))
 
-        print(body)
         url = 'https://ussouthcentral.services.azureml.net/workspaces/98f09e8bdaf14d8ca8003c16f867a661/services/232decf47f234957aa8e63e34ae0347a/execute?api-version=2.0&details=true'
         api_key = 'BsQKb4MJaoH2psrE7wS7PR4Z3BT+2vMutHWTjtkHV40a7pfwwQMjCr0xfGdtns1vZkZzi0kcLdHALQPLNAcAvw=='  # Replace this with the API key for the web service
         headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
@@ -111,8 +104,6 @@ def index():
         response = urllib.request.urlopen(req)
 
         result = response.read()
-        print(type(result))
-        print(result)
         result = result.decode("utf-8")
         sst = json.loads(result)
         return render_template("index.html",
@@ -136,15 +127,12 @@ def login():
         if User.query.filter_by(username=form.id.data, password=form.password.data).first():
             user = User.query.filter_by(username=form.id.data, password=form.password.data).first_or_404()
             login_user(user)
-            print("logined")
             return redirect(url_for('index'))
         else:
-            print("notlogined")
             return render_template('login.html',
                                    title='Sign In',
                                    error='Not Right',
                                    form=form)
-    print("???")
     return render_template('login.html',
                            title='Sign In',
                            form=form)
@@ -235,13 +223,9 @@ def docamlogin():
             user1 = str(f).split('.')[0]
             imgurl2 = "http://ttbachyinsda.pub:810/getrawimage" + "/" + user1
             imgurl1 = "http://ttbachyinsda.pub:810/gettempimage/"+tempfile
-            print(imgurl2,imgurl1)
             if (face_check(imgurl2, imgurl1)):
-                print("successful")
-                print(user1)
                 user = User.query.filter_by(username=user1).first_or_404()
                 login_user(user)
-                print("really successful")
                 returndata = {'success': 'y'}
                 return json.dumps(returndata)
             else:
