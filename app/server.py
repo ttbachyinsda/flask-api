@@ -214,7 +214,7 @@ def getcam():
 
 @app.route('/docamlogin', methods=['GET', 'POST'])
 def docamlogin():
-    d = json.loads(request.data)
+    d = json.loads(request.data.decode('utf-8'))
     c = str(d['doc'])
     fs = open('temp.txt','w')
     fs.write(c)
