@@ -240,6 +240,7 @@ def docamlogin():
                 print("successful")
                 user = User.query.filter_by(username=user1).first_or_404()
                 login_user(user)
+                print("really successful")
                 returndata = {'success': 'y'}
                 return json.dumps(returndata)
             else:
