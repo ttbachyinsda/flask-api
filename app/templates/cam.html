@@ -43,6 +43,26 @@
          var imgData = canvans.toDataURL("image/jpg");
          var base64Data = imgData.split(",")[1];
 
+	$.ajax({
+		type: 'POST',
+		url: '/docamlogin',
+		data: '{ "doc" : "' + base64Data + '" }',
+		contentType: 'application/json',
+		dataType: 'json',
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert(errorThrown)
+			alert("Unknown Error");
+		},
+		success: function(data){
+			if (data['success'] == 'n') {
+				<!--document.getElementById("regRes").style = "display: inline;";-->
+				<!--document.getElementById("regRes").innerHTML = data['fault'];-->
+			}
+			else {
+				location.href = "/index";
+			}
+		}
+	});
          var xhr = new XMLHttpRequest();
          xhr.open("post", "/docamlogin", true);
          xhr.setRequestHeader("X-Requested-Width", "XMLHttpRequest");

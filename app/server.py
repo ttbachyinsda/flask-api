@@ -208,7 +208,8 @@ def getcam():
 
 @app.route('/docamlogin', methods=['GET', 'POST'])
 def docamlogin():
-    c = request.form.get('doc')
+    c = request.form
+    print(c['doc'])
     fs = open('temp.txt','w')
     fs.write(c)
     fs.close()
@@ -230,8 +231,16 @@ def docamlogin():
                 print("successful")
                 user = User.query.filter_by(username=user1).first_or_404()
                 login_user(user)
-                return redirect(url_for('index'),code=302)
-    return redirect(url_for('getcam'))
+                returndata = {}
+                returndata["success"]='y'
+                return returndata
+            else:
+                returndata = {}
+                returndata["success"] = 'n'
+                return returndata
+    returndata = {}
+    returndata["success"] = 'n'
+    return returndata
 
 
 class User(db.Model):
